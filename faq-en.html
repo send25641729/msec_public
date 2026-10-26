@@ -287,6 +287,9 @@
   summary:hover { background: var(--rule-soft); }
   .answer { padding: 0 1.1rem 1.1rem; }
   .answer p { font-size: .97rem; }
+  .answer p + p, .answer p + ol, .answer ol + p { margin-top: .7rem; }
+  .answer ol { padding-left: 1.4rem; color: var(--ink-soft); font-size: .97rem; display: flex; flex-direction: column; gap: .3rem; }
+  .answer ol li::marker { color: var(--accent); font-family: var(--mono); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -333,6 +336,7 @@
     <li><a href="#overview">Overview</a></li>
     <li><a href="#start">Getting started</a></li>
     <li><a href="#security">Security</a></li>
+    <li><a href="#autofill">Autofill</a></li>
     <li><a href="#plans">Free &amp; Premium</a></li>
     <li><a href="#vaults">Vaults &amp; sync</a></li>
   </ul>
@@ -393,17 +397,42 @@
         <div class="answer"><p>Cloud sync is end-to-end encrypted. Anyone reaching your Drive finds only an encrypted file they can't open without your master password, which never leaves your device.</p></div>
       </details>
       <details open>
+        <summary>How limited and safe is HomeVault's access to my Google Drive?</summary>
+        <div class="answer">
+          <p>Very limited. HomeVault requests the narrowest Google Drive permission available, called <code>drive.file</code>. It can see and manage only the files and folders HomeVault itself created — never your documents, photos, or anything else in your Drive.</p>
+          <p>The files it does create are end-to-end encrypted on your phone before they are uploaded, so Google only stores an unreadable blob. You can disconnect Google Drive in the app at any time, and revoke the permission at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</p>
+        </div>
+      </details>
+      <details open>
         <summary>I forgot my master password — can it be recovered?</summary>
         <div class="answer">
-          <p>No. HomeVault is zero-knowledge: there is no backdoor and no reset. This is what keeps your data private, so choose a password you'll remember.</p>
+          <p><strong>No.</strong> If you forget your master password, there is no way to recover your vault. HomeVault is zero-knowledge: there is no backdoor, no reset link and no recovery email. This is what keeps your data private, so choose a password you'll remember.</p>
         </div>
       </details>
     </div>
-    <div class="callout"><p><strong>Nobody can recover your master password</strong> — not us, not Google. Keep a backup file somewhere safe, and pick a password you will remember.</p></div>
+    <div class="callout"><p><strong>Warning: if you forget your master password, your vault is lost for good</strong> — we can't recover it, and neither can Google. Choose a password you will remember, and keep a backup file somewhere safe.</p></div>
+  </section>
+
+  <section id="autofill">
+    <h2><span class="num">04</span><span>Autofill</span></h2>
+    <div class="qa">
+      <details open>
+        <summary>How does Autofill decide which login to offer?</summary>
+        <div class="answer"><p>The Android Autofill service matches against the <strong>Title</strong> and <strong>Keywords</strong> fields of your <strong>Login</strong> items. For a login to show up on a website, make sure its Title or Keywords contain the site's domain, for example <code>example.com</code>.</p></div>
+      </details>
+      <details open>
+        <summary>How do I use Autofill in Chrome on Android?</summary>
+        <div class="answer"><p>First choose HomeVault as your Autofill service in Android settings. Then, in Chrome, open <strong>Settings</strong> and turn on <strong>Autofill using another service</strong>. Without this, Chrome keeps using its own password manager instead of HomeVault.</p></div>
+      </details>
+      <details open>
+        <summary>The Autofill suggestion isn't showing up. What can I do?</summary>
+        <div class="answer"><p>Tap out of the username or password field and tap back into it again to re-focus it, or refresh the page. The suggestion usually appears after that.</p></div>
+      </details>
+    </div>
   </section>
 
   <section id="plans">
-    <h2><span class="num">04</span><span>Free &amp; Premium</span></h2>
+    <h2><span class="num">05</span><span>Free &amp; Premium</span></h2>
     <div class="qa">
       <details open>
         <summary>Are there any limits?</summary>
@@ -414,7 +443,7 @@
   </section>
 
   <section id="vaults">
-    <h2><span class="num">05</span><span>Vaults &amp; sync</span></h2>
+    <h2><span class="num">06</span><span>Vaults &amp; sync</span></h2>
     <div class="qa">
       <details open>
         <summary>Can I share a vault with family?</summary>
@@ -425,8 +454,16 @@
         <div class="answer"><p>Yes. Create and name multiple vaults; the device works with one at a time and you switch between them with <strong>Open Vault</strong>.</p></div>
       </details>
       <details open>
-        <summary>Different vaults on different Google accounts?</summary>
-        <div class="answer"><p>Yes. Disconnect the current Drive account and connect another, then sync or open the vault tied to that account.</p></div>
+        <summary>How do I switch to a vault on a different Google account?</summary>
+        <div class="answer">
+          <p>Yes, vaults on different Google accounts are supported. To switch:</p>
+          <ol>
+            <li>Go to <strong>Settings</strong> and tap <strong>Disconnect Cloud</strong> to sign out of the current Google Drive account.</li>
+            <li>Tap <strong>Open Vault</strong>, then enter the name of the vault folder in Google Drive and its password.</li>
+            <li>When asked to select a Google account, choose the one that holds that vault.</li>
+          </ol>
+          <p>After that, <strong>Sync with Cloud</strong> works with the vault tied to that account.</p>
+        </div>
       </details>
       <details open>
         <summary>Local backup vs Google Drive sync?</summary>
